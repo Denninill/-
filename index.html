@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка скорости интернета</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #007BFF;
+        }
+        .container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 24px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Проверка скорости интернета</h1>
+        <p>Нажмите кнопку, чтобы начать тестирование скорости вашего интернета.</p>
+        <button onclick="checkSpeed()">Проверить скорость</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function checkSpeed() {
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = "Проверка...";
+
+            const startTime = new Date().getTime();
+            const imageUrl = "https://www.gstatic.com/webp/gallery/2.jpg"; 
+            const img = new Image();
+
+            img.onload = function() {
+                const duration = (new Date().getTime() - startTime) / 1000; 
+                const imageSize = 500000; 
+                const speedMbps = (imageSize * 8) / (duration * 1024 * 1024); 
+                resultDiv.innerHTML = `Скорость загрузки: ${speedMbps.toFixed(2)} Mbps`;
+            };
+
+            img.onerror = function() {
+                resultDiv.innerHTML = "Ошибка при проверке скорости.";
+            };
+
+            img.src = imageUrl + "?d=" + new Date().getTime();
+        }
+    </script>
+</body>
+</html>
